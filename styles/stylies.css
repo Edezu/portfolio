@@ -581,6 +581,7 @@
 }
 .portfolio-title h1{
     color: gold;
+    font-size: 1.8em;
 }
 .portfolio-content{
     display: flex;
@@ -593,12 +594,13 @@
     background-color: rgb(0, 0, 0, 0.8);
     color: #fff;
     text-decoration: none;
-    font-size: 1.3em;
+    font-size: 1.6em;
 }
 .portfolio-content a:hover{
-    background-color: rgb(255, 1, 179, 1.0);
     border-radius: 8px;
     color: #000000;
+    background-color: gold;
+
 }
 .portfolio-item{
     display: flex;
