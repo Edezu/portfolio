@@ -421,6 +421,7 @@
    border: 10px solid #000000;
    border-radius: 50%;
    outline: 3px solid gold;
+   cursor: pointer;
 }
 .about-content{
     width: 60%;
