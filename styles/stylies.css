@@ -284,15 +284,20 @@
 .skills-item a:hover{
     background-color: hsla(0, 0, 0, 1.0);
 }
-.skils-card{
+.skills-card{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    gap: 5vh;
 }
-.skils-card p{
+.skills-card h5{
     font-size: 3em;
+}
+.skills-card p{
+    font-size: 1.4em;
+    line-height: 1.6em;
 }
 .quick-section{
     display: flex;
@@ -314,7 +319,7 @@
     flex-direction: column;
     gap: 18px;
     width: 40%;
-    padding: 20px;
+    padding: 20px 0px;
     min-height: 40vh;
 }
 .aside-content a{
