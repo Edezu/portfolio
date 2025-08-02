@@ -1,0 +1,627 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/* Header and Main Navigation Styles */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    position: sticky;
+    top: 0px;
+    z-index: 200;
+    width: 100%;
+}
+
+.header h1{
+    color: gold;
+    font-size: 22px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    padding: 5px 15px;
+    border-right: 1px solid gold;
+    border-bottom: 1px solid gold;
+}
+.header h1, .logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-container{
+    display: flex;
+    gap: 5vw;
+}
+.logo{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+}
+
+/* Hamburger Menu and Responsive Behavior */
+
+/* Hide the checkbox itself from view */
+.nav-toggle {
+    display: none;
+}
+
+/* Base styles for the hamburger icon */
+.hamburger-icon {
+    display: none; 
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+}
+
+/* Styling the lines of the hamburger icon */
+.hamburger-icon .hamburger-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Initially hide the navigation menu on small screens */
+.nav-bar {
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Styling the navigation links for both desktop and smaller screens */
+.nav-links {
+    list-style: none; 
+    display: flex; 
+    gap: 20px; 
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: gold;
+}
+
+/* Page view in smaller screens */
+
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+    }
+
+    /* Show the hamburger icon on small screens */
+    .hamburger-icon {
+        display: block;
+    }
+
+    /* On small screens, the nav-bar is initially hidden and
+       will be revealed when the hamburger icon is clicked */
+    .nav-bar {
+        max-height: 0;
+        overflow: hidden;
+        width: 100%; 
+    }
+
+    .nav-links {
+        flex-direction: column; 
+        text-align: center;
+        padding-top: 15px; 
+    }
+
+    .nav-links li {
+        margin: 10px 0; 
+    }
+
+    /* I used the "Checkbox Hack" to Toggle the Menu */
+    .nav-toggle:checked ~ .nav-bar {
+        max-height: 500px; 
+    }
+
+    /* Animate the hamburger icon on click */
+    .nav-toggle:checked ~ .hamburger-icon .hamburger-line:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle:checked ~ .hamburger-icon .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle:checked ~ .hamburger-icon .hamburger-line:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 120px;
+}
+.welcome-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 120px;
+}
+.welcome-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    border: 2px solid gold; 
+    border-radius: 20px;
+    margin: 30px 0px;
+    padding: 25px 15px;
+    text-align: center;
+    background-color: hsla(0, 0%, 0%, 0.4);
+}
+
+/* Hidden Elements and Cursor */
+.welcome-box h2,
+.welcome-box p {
+    overflow: hidden;
+    border-right: 0.15em solid #fff;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Keyframe Animations for Typing and Cursor */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #333; }
+}
+
+/* Applying the Animations */
+/*Character count for h2 and p, and speed*/
+:root {
+    --h2-chars: 29; 
+    --p-chars: 71;  
+    --type-speed: 0.08s; 
+    --reset-pause: 2s; 
+
+    /* Duration of the typing phase for the heading and paragraph */
+    --h2-type-duration: calc(var(--h2-chars) * var(--type-speed));
+    --p-type-duration: calc(var(--p-chars) * var(--type-speed));
+    --total-loop-duration: calc(var(--h2-type-duration) + var(--p-type-duration) + var(--reset-pause));
+}
+
+.welcome-box h2 {
+    color: white;
+    font-size: 3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    animation:
+        typing var(--h2-type-duration) steps(var(--h2-chars), end) infinite,
+        blink-caret 0.75s step-end infinite;
+    animation-duration: var(--total-loop-duration);
+}
+
+.welcome-box p {
+    color: transparent;
+    border-color: transparent;
+    animation:
+        typing var(--p-type-duration) steps(var(--p-chars), end) infinite,
+        blink-caret 0.75s step-end infinite;
+
+    /* Start of the paragraph animation after the heading */
+    animation-delay: var(--h2-type-duration);
+    animation-duration: var(--total-loop-duration);
+
+    color: gold;
+    margin: 30px 0pc;
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    line-height: 1.4em;
+}
+
+/*Heading and paragraph view in smaller screens*/
+@media (max-width: 768px){
+    .welcome-box h2{
+        font-size: 1.2em;
+    }
+    .welcome-box p{
+        font-size: 1em;
+    }
+}
+
+.skills-section{
+    display: flex;
+    gap: 6vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.skills-title{
+    background: linear-gradient(#000000,#000000,rgb(255, 1, 179, 0.2));
+    text-align: center;
+    padding: 20px 15px;
+    width: 80%;
+    box-shadow: 0px 6px 15px 2px rgb(255, 1, 179, 0.2);
+}
+.skills-title h4{
+    color: #ffffff;
+    font-size: 3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.skills-item{
+    display: flex;
+    gap: 30px;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.skills-item a{
+    width: 80%;
+    text-decoration: none;
+    min-height: 55vh;
+    background-color: hsla(0, 0, 0, 0.4);
+    color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 1px 1px 8px gold;
+}
+.skills-item a:hover{
+    background-color: hsla(0, 0, 0, 1.0);
+}
+.skils-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.skils-card p{
+    font-size: 3em;
+}
+.quick-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 50vh;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0px;
+}
+.quick-section h4{
+    font-size: 1.2em;
+    color: gold;
+}
+.aside-content, .contact-section{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 40%;
+    padding: 20px;
+    min-height: 40vh;
+}
+.aside-content a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.aside-content a:hover{
+    color: yellow;
+}
+.contact-section{
+    text-align: right;
+}
+.address{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.address a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.address a:hover{
+    color: yellow;
+    text-decoration: underline;
+}
+
+/*Styling the footer*/
+.footer{
+    display: flex;
+    flex-direction: column;
+    gap: 06vh;
+    background-color: #000000;
+    color: gold;
+    min-height: 15vh;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.horiz-line{
+    border: 1px solid #ffffff;
+    width: 80%;
+}
+#footer-btn a{
+    color: #ffffff;
+    font-size: 48px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+}
+
+/*View of index page in smaller screens*/
+@media (max-width: 768px){
+    .welcome-box{
+        width: 80%;
+    }
+    .skills-item{
+        flex-direction: column;
+    }
+    .quick-section{
+        flex-direction: column;
+    }
+    .aside-content, .contact-section{
+        width: 100%;
+        text-align: center;
+    }
+    .skils-card{
+        width: 80%;
+    }
+}
+
+/*Styling the about page */
+.about-main{
+    display: flex;
+    flex-direction: column;
+}
+.about-me{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.about-article{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    min-height: 80vh;
+    margin: auto;
+    padding: 15vh 0;
+    background: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.4), rgb(255, 1, 179, 0.2));
+    justify-content: center;
+    align-items: center;
+}
+.about-side-bar{
+    width: 25%;
+}
+.profile-photo{
+   width: 12vw;
+   height: auto;
+   border: 10px solid #000000;
+   border-radius: 50%;
+   outline: 3px solid gold;
+}
+.about-content{
+    width: 60%;
+    font-size: 1.2em;
+}
+.about-content h1{
+    color: gold;
+    margin-bottom: 3vh;
+    font-size: 1.5em;
+}
+.about-content p{
+    color: #ffffff;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-right: 1px solid gold;
+    border-bottom: 1px solid gold;
+    border-radius: 15px;
+    padding: 20px;
+    line-height: 1.8em;
+    text-align: justify;
+}
+
+/*In small screen - display about page*/
+@media (max-width: 768px){
+    .about-article{
+        flex-direction: column;
+        width: 95%;
+    }
+    .about-side-bar, .about-content{
+        width: 100%;
+        padding: 20px;
+    }
+    .photo-container{
+        display: flex;
+        justify-content: center;
+    }
+    .profile-photo{
+        width: 16vw;
+        height: auto;
+        border: 5px solid #000000;
+    }
+}
+
+/*Styling contact page*/
+.contact-main{
+    display: flex;
+    flex-direction: column;
+}
+.main-content{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    min-height: 80vh;
+    margin: auto;
+    background: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.4), rgb(255, 1, 179, 0.2));
+    justify-content: center;
+    align-items: center;
+}
+.contact-side, .contact-container{
+    color: #ffffff;
+}
+.contact-side{
+    width: 20%;
+}
+.contact-container{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+.contact-container h4{
+    font-size: 1.6em;
+}
+.form-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.form-flex .form-field {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+/* Set a fixed width for the labels so they all align */
+.form-flex label {
+  flex-basis: 20%;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+/* Make the inputs fill the remaining space */
+.form-flex input,
+.form-flex textarea {
+  flex-grow: 1;
+  background: none;
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-bottom: 1px solid#ffffff;
+  padding: 8px;
+}
+.form-flex input:hover,
+.form-flex textarea:hover{
+    border-bottom: 1px solid gold;
+}
+
+/*Styling the submit button*/
+.form-flex input[type="submit"] {
+  align-self: flex-end;
+  margin-top: 10px;
+  width: 20%;
+  padding: 10px;
+  font-size: 1.2em;
+  background-color: black;
+  color: gold;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.form-flex input[type="submit"]:hover{
+    background-color: rgb(255, 1, 179, 1.0);
+    color: #000000;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+/*Page view in smaller screens*/
+@media (max-width: 768px){
+    .main-content{
+        flex-direction: column;
+        width: 95%;
+    }
+    .contact-side, .contact-container{
+        width: 100%;
+        padding: 0px 20px;
+    }
+}
+
+/* Styling the portfolio page*/
+.porfolio-main{
+    display: flex;
+    flex-direction: column;
+}
+.portfolio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.portfolio-article{
+    display: flex;
+    flex-direction: column;
+    gap: 20vh;
+    width: 80%;
+    min-height: 80vh;
+    margin: auto;
+    padding: 15vh 0;
+    background: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.4), rgb(255, 1, 179, 0.2));
+    justify-content: center;
+    align-items: center;
+}
+.portfolio-title h1{
+    color: gold;
+}
+.portfolio-content{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    gap: 8vw;
+}
+.portfolio-content a{
+    width: 60%;
+    background-color: rgb(0, 0, 0, 0.8);
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+.portfolio-content a:hover{
+    background-color: rgb(255, 1, 179, 1.0);
+    border-radius: 8px;
+    color: #000000;
+}
+.portfolio-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 18vh;
+    box-shadow: 1px 1px 1px rgb(255, 1, 179, 1.0);
+    border-radius: 10px;
+}
+
+/*Page view in smaller screens*/
+@media (max-width: 768px){
+    .portfolio-article{
+        width: 95%;
+    }
+    .portfolio-content{
+        max-width: 80%;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .portfolio-content a{
+        width: 100%;
+    }
+}
